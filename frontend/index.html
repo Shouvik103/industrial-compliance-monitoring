@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Compliance Monitoring System</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fafafa;--surface:#fff;--border:#e5e7eb;--text:#1f2937;
+  --muted:#6b7280;--accent:#1d4ed8;--accent-light:#dbeafe;
+  --green:#16a34a;--red:#dc2626;--amber:#d97706;
+  --radius:6px;--shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px}
+a{color:var(--accent);text-decoration:none}
+
+/* Header */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header h1{font-size:16px;font-weight:600;letter-spacing:-0.3px}
+.header h1 span{color:var(--muted);font-weight:400;margin-left:8px;font-size:13px}
+.header-meta{font-size:12px;color:var(--muted)}
+
+/* Layout */
+.container{max-width:1280px;margin:0 auto;padding:24px 32px}
+.section{margin-bottom:32px}
+.section-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px}
+
+/* Zone selector */
+.zone-tabs{display:flex;gap:8px;margin-bottom:24px}
+.zone-tab{padding:8px 20px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:500;background:var(--surface);transition:all 0.15s}
+.zone-tab:hover{border-color:var(--accent)}
+.zone-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Metric cards */
+.metrics-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow)}
+.metric-card .label{font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px}
+.metric-card .value{font-size:26px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-1px}
+.metric-card .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.metric-card.risk-low .value{color:var(--green)}
+.metric-card.risk-medium .value{color:var(--amber)}
+.metric-card.risk-high .value{color:var(--red)}
+.metric-card.negative .value{color:var(--red)}
+.metric-card.positive .value{color:var(--green)}
+
+/* Two column layout */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+/* Map */
+#map{height:400px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;background:#f9fafb;border-bottom:2px solid var(--border);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.3px;color:var(--muted)}
+td{padding:8px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:#f9fafb}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge-red{background:#fef2f2;color:var(--red)}
+.badge-amber{background:#fffbeb;color:var(--amber)}
+.badge-green{background:#f0fdf4;color:var(--green)}
+
+/* Image panels */
+.img-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.img-panel .panel-title{padding:10px 16px;font-size:12px;font-weight:600;border-bottom:1px solid var(--border);background:#f9fafb;text-transform:uppercase;letter-spacing:0.3px;color:var(--muted)}
+.img-panel img{width:100%;display:block}
+
+/* Image tabs */
+.img-tabs{display:flex;gap:4px;padding:8px 12px;background:#f9fafb;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.img-tab{padding:4px 12px;font-size:11px;border-radius:4px;cursor:pointer;border:1px solid transparent;font-weight:500;color:var(--muted);transition:all 0.15s}
+.img-tab:hover{color:var(--text)}
+.img-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Confusion matrix styling */
+.cm-grid{display:grid;gap:2px;padding:16px}
+.cm-cell{display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;border-radius:3px;padding:6px;font-weight:500}
+.cm-header{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;justify-content:center}
+
+/* Feature importance bars */
+.fi-bar-wrap{margin-bottom:6px}
+.fi-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}
+.fi-bar-label span:last-child{font-family:'JetBrains Mono',monospace;color:var(--muted)}
+.fi-bar{height:6px;background:#f3f4f6;border-radius:3px;overflow:hidden}
+.fi-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.5s ease}
+
+/* Footer */
+.footer{text-align:center;padding:32px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Industrial Compliance Monitoring<span>IIIT Dharwad / ML Course Project</span></h1>
+  <div class="header-meta">Sentinel-2 L2A &middot; 10m Resolution &middot; 2020&ndash;2024</div>
+</div>
+
+<div class="container">
+  <!-- Zone selector -->
+  <div class="zone-tabs" id="zoneTabs"></div>
+
+  <!-- Key metrics -->
+  <div class="section">
+    <div class="section-title">Change Detection Summary</div>
+    <div class="metrics-row" id="metricsRow"></div>
+  </div>
+
+  <!-- Map + Violations table -->
+  <div class="section">
+    <div class="two-col">
+      <div>
+        <div class="section-title">Violation Map</div>
+        <div id="map"></div>
+      </div>
+      <div>
+        <div class="section-title">Top Violations</div>
+        <div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius)">
+          <table id="violationsTable">
+            <thead><tr><th>#</th><th>Coordinates</th><th>Type</th><th>Area</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ML Model Performance -->
+  <div class="section">
+    <div class="section-title">ML Model Performance</div>
+    <div class="two-col">
+      <div class="img-panel">
+        <div class="panel-title">Confusion Matrix</div>
+        <img id="imgCM" src="" alt="Confusion Matrix">
+      </div>
+      <div>
+        <div class="img-panel" style="margin-bottom:16px">
+          <div class="panel-title">Classification Metrics</div>
+          <div style="padding:16px" id="mlMetricsPanel"></div>
+        </div>
+        <div class="img-panel">
+          <div class="panel-title">Feature Importance</div>
+          <div style="padding:16px" id="featureImportance"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Curve -->
+  <div class="section">
+    <div class="section-title">Learning Curve</div>
+    <div class="img-panel">
+      <img id="imgLC" src="" alt="Learning Curve" style="max-height:400px;object-fit:contain;margin:0 auto">
+    </div>
+  </div>
+
+  <!-- Satellite Imagery -->
+  <div class="section">
+    <div class="section-title">Satellite Imagery &amp; Analysis</div>
+    <div class="img-panel">
+      <div class="img-tabs" id="imgTabs"></div>
+      <img id="mainImage" src="" alt="Analysis">
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Industrial Environmental Compliance Monitoring System &middot; ML Course Project (Statement 3) &middot; IIIT Dharwad<br>
+  Data: ESA Copernicus Sentinel-2 L2A via Microsoft Planetary Computer
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+let DATA = [];
+let currentZone = 0;
+let map, markerGroup;
+
+async function init() {
+  const res = await fetch("/api/zones");
+  DATA = await res.json();
+
+  // Build zone tabs
+  const tabs = document.getElementById("zoneTabs");
+  DATA.forEach((z, i) => {
+    const btn = document.createElement("div");
+    btn.className = "zone-tab" + (i === 0 ? " active" : "");
+    btn.textContent = z.label;
+    btn.onclick = () => selectZone(i);
+    tabs.appendChild(btn);
+  });
+
+  // Init map
+  map = L.map("map").setView(DATA[0].center, 14);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap", maxZoom: 18
+  }).addTo(map);
+  markerGroup = L.layerGroup().addTo(map);
+
+  selectZone(0);
+}
+
+function selectZone(idx) {
+  currentZone = idx;
+  const z = DATA[idx];
+
+  // Update tabs
+  document.querySelectorAll(".zone-tab").forEach((t, i) =>
+    t.classList.toggle("active", i === idx));
+
+  renderMetrics(z);
+  renderMap(z);
+  renderViolations(z);
+  renderML(z);
+  renderImages(z);
+}
+
+function renderMetrics(z) {
+  const s = z.change_stats;
+  const row = document.getElementById("metricsRow");
+  const riskClass = s.risk_level === "HIGH" ? "risk-high" : s.risk_level === "MEDIUM" ? "risk-medium" : "risk-low";
+
+  row.innerHTML = `
+    <div class="metric-card"><div class="label">Green Cover 2020</div><div class="value">${s.green_cover_t1_pct}%</div><div class="sub">Baseline period</div></div>
+    <div class="metric-card"><div class="label">Green Cover 2024</div><div class="value">${s.green_cover_t2_pct}%</div><div class="sub">Recent period</div></div>
+    <div class="metric-card negative"><div class="label">Net Change</div><div class="value">${s.green_cover_change_pct > 0 ? "+" : ""}${s.green_cover_change_pct}%</div><div class="sub">${Math.abs(s.green_cover_change_pct).toFixed(1)}% absolute shift</div></div>
+    <div class="metric-card"><div class="label">Vegetation Loss</div><div class="value">${s.vegetation_loss_pct}%</div><div class="sub">${s.vegetation_loss_pixels.toLocaleString()} pixels</div></div>
+    <div class="metric-card"><div class="label">New Construction</div><div class="value">${s.new_construction_pct}%</div><div class="sub">${s.new_construction_pixels.toLocaleString()} pixels</div></div>
+    <div class="metric-card ${riskClass}"><div class="label">Risk Level</div><div class="value">${s.risk_level}</div><div class="sub">Threshold-based classification</div></div>
+  `;
+}
+
+function renderMap(z) {
+  map.setView(z.center, 14);
+  markerGroup.clearLayers();
+
+  // Draw AOI rectangle
+  const b = z.bbox;
+  L.rectangle([[b[0], b[1]], [b[2], b[3]]], {
+    color: "#1d4ed8", weight: 2, fillOpacity: 0.05, dashArray: "6 3"
+  }).addTo(markerGroup).bindPopup(`<b>${z.label}</b><br>Study Area Boundary`);
+
+  // Add violation markers
+  const colors = {vegetation_loss: "#dc2626", new_construction: "#d97706", both: "#9333ea"};
+  z.violations.forEach((v, i) => {
+    const c = colors[v.type] || "#666";
+    const marker = L.circleMarker([v.lat, v.lon], {
+      radius: Math.min(4 + v.area_hectares * 2, 14),
+      color: c, fillColor: c, fillOpacity: 0.6, weight: 1.5
+    }).addTo(markerGroup);
+    marker.bindPopup(`
+      <b>Violation #${i + 1}</b><br>
+      Type: ${v.type.replace(/_/g, " ")}<br>
+      Area: ${v.area_hectares} ha (${v.area_sqm.toLocaleString()} m&sup2;)<br>
+      Coords: ${v.lat.toFixed(4)}, ${v.lon.toFixed(4)}
+    `);
+  });
+}
+
+function renderViolations(z) {
+  const tbody = document.querySelector("#violationsTable tbody");
+  tbody.innerHTML = z.violations.slice(0, 20).map((v, i) => {
+    const cls = v.type === "vegetation_loss" ? "badge-red" :
+                v.type === "new_construction" ? "badge-amber" : "badge-green";
+    return `<tr>
+      <td>${i + 1}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${v.lat.toFixed(4)}, ${v.lon.toFixed(4)}</td>
+      <td><span class="badge ${cls}">${v.type.replace(/_/g, " ")}</span></td>
+      <td>${v.area_hectares} ha</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderML(z) {
+  const m = z.ml_metrics;
+
+  // Metrics panel
+  document.getElementById("mlMetricsPanel").innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${[["Accuracy", m.accuracy], ["Precision", m.precision], ["Recall", m.recall], ["F1-Score", m.f1_score]].map(([l, v]) => `
+        <div style="text-align:center;padding:12px;background:#f9fafb;border-radius:var(--radius)">
+          <div style="font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--accent)">${(v * 100).toFixed(2)}%</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${l}</div>
+        </div>
+      `).join("")}
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted)">
+      Random Forest &middot; 100 trees &middot; max_depth=15 &middot;
+      Train: ${m.n_train.toLocaleString()} &middot; Test: ${m.n_test.toLocaleString()}
+    </div>
+  `;
+
+  // Feature importance
+  const fi = m.feature_importance;
+  const maxVal = Math.max(...Object.values(fi));
+  document.getElementById("featureImportance").innerHTML = Object.entries(fi)
+    .sort((a, b) => b[1] - a[1])
+    .map(([k, v]) => `
+      <div class="fi-bar-wrap">
+        <div class="fi-bar-label"><span>${k}</span><span>${(v * 100).toFixed(1)}%</span></div>
+        <div class="fi-bar"><div class="fi-bar-fill" style="width:${(v / maxVal) * 100}%"></div></div>
+      </div>
+    `).join("");
+
+  // Images
+  const name = z.name;
+  document.getElementById("imgCM").src = `/img/results/confusion_matrix_${name}.png`;
+  document.getElementById("imgLC").src = `/img/results/learning_curve_${name}.png`;
+}
+
+function renderImages(z) {
+  const name = z.name;
+  const images = [
+    {id: "ba", label: "Before / After", src: `/img/results/before_after_${name}.png`},
+    {id: "av", label: "Violation Map", src: `/img/results/annotated_violations_${name}.png`},
+    {id: "lc", label: "Land Cover", src: `/img/results/landcover_comparison_${name}.png`},
+    {id: "cm", label: "Change Detection", src: `/img/frontend/assets/${name}/change_map.png`},
+    {id: "n1", label: "NDVI 2020", src: `/img/frontend/assets/${name}/ndvi_T1_2020.png`},
+    {id: "n2", label: "NDVI 2024", src: `/img/frontend/assets/${name}/ndvi_T2_2024.png`},
+    {id: "db", label: "Dashboard", src: `/img/frontend/assets/${name}/dashboard.png`},
+  ];
+
+  const tabs = document.getElementById("imgTabs");
+  tabs.innerHTML = images.map((img, i) =>
+    `<div class="img-tab${i === 0 ? " active" : ""}" data-idx="${i}">${img.label}</div>`
+  ).join("");
+
+  const mainImg = document.getElementById("mainImage");
+  mainImg.src = images[0].src;
+
+  tabs.querySelectorAll(".img-tab").forEach(tab => {
+    tab.onclick = () => {
+      tabs.querySelectorAll(".img-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      mainImg.src = images[parseInt(tab.dataset.idx)].src;
+    };
+  });
+}
+
+init();
+</script>
+</body>
+</html>
