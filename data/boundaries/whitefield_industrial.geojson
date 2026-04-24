@@ -1,0 +1,39 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "whitefield_industrial_zone",
+        "type": "fallback_bbox"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.72,
+              12.95
+            ],
+            [
+              77.8,
+              12.95
+            ],
+            [
+              77.8,
+              13.01
+            ],
+            [
+              77.72,
+              13.01
+            ],
+            [
+              77.72,
+              12.95
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

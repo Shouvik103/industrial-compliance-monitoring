@@ -1,0 +1,39 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "peenya_aoi",
+        "type": "study_area"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.48,
+              13.01
+            ],
+            [
+              77.56,
+              13.01
+            ],
+            [
+              77.56,
+              13.07
+            ],
+            [
+              77.48,
+              13.07
+            ],
+            [
+              77.48,
+              13.01
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

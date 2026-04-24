@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Compliance Report - Whitefield</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; color: #333; }
+h1 { border-bottom: 3px solid #2563eb; padding-bottom: 10px; }
+h2 { color: #1e40af; margin-top: 30px; }
+table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #f0f4ff; font-weight: bold; }
+.risk-badge { display: inline-block; padding: 8px 24px; border-radius: 8px; color: white; font-size: 24px; font-weight: bold; background: #f59e0b; }
+.metric { display: inline-block; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px 25px; margin: 5px; text-align: center; }
+.metric .value { font-size: 28px; font-weight: bold; color: #1e40af; }
+.metric .label { font-size: 12px; color: #64748b; }
+</style></head><body>
+<h1>Environmental Compliance Report</h1>
+<p><strong>Zone:</strong> Whitefield Industrial Area, Bengaluru, Karnataka</p>
+<p><strong>Analysis Period:</strong> March 2020 (Baseline) to March 2024 (Recent)</p>
+<p><strong>Data Source:</strong> Sentinel-2 L2A (ESA Copernicus) | 10m Resolution</p>
+<p><strong>Generated:</strong> Automated Pipeline v1.0</p>
+
+<h2>Risk Assessment</h2>
+<p>Overall Risk Level: <span class="risk-badge">MEDIUM</span></p>
+<div>
+<div class="metric"><div class="value">71.2%</div><div class="label">Green Cover 2020</div></div>
+<div class="metric"><div class="value">43.5%</div><div class="label">Green Cover 2024</div></div>
+<div class="metric"><div class="value" style="color:#ef4444">-27.8%</div><div class="label">Change</div></div>
+<div class="metric"><div class="value">38.9%</div><div class="label">Vegetation Loss</div></div>
+<div class="metric"><div class="value">17.7%</div><div class="label">New Construction</div></div>
+</div>
+
+<h2>ML Model Performance</h2>
+<table><tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Algorithm</td><td>Random Forest (100 trees, max_depth=15)</td></tr>
+<tr><td>Training Samples</td><td>176,733</td></tr>
+<tr><td>Test Samples</td><td>75,743</td></tr>
+<tr><td>Accuracy</td><td>98.70%</td></tr>
+<tr><td>Precision (weighted)</td><td>98.79%</td></tr>
+<tr><td>Recall (weighted)</td><td>98.70%</td></tr>
+<tr><td>F1-Score (weighted)</td><td>98.73%</td></tr></table>
+
+<h2>Violation Alerts</h2>
+<p>Total violations detected: <strong>43</strong></p>
+<table><tr><th>#</th><th>Coordinates (Lat, Lon)</th><th>Type</th><th>Area (ha)</th></tr>
+<tr><td>1</td><td>13.008680, 77.730971</td><td>Both</td><td>3.15</td></tr>
+<tr><td>2</td><td>13.008607, 77.722204</td><td>Both</td><td>1.63</td></tr>
+<tr><td>3</td><td>13.009912, 77.742153</td><td>Both</td><td>1.6</td></tr>
+<tr><td>4</td><td>13.009900, 77.749962</td><td>Both</td><td>1.59</td></tr>
+<tr><td>5</td><td>13.009745, 77.735480</td><td>Both</td><td>1.38</td></tr>
+<tr><td>6</td><td>13.009608, 77.743462</td><td>Both</td><td>1.29</td></tr>
+<tr><td>7</td><td>13.009803, 77.725418</td><td>Both</td><td>1.2</td></tr>
+<tr><td>8</td><td>13.009693, 77.753110</td><td>Vegetation Loss</td><td>1.15</td></tr>
+<tr><td>9</td><td>13.010157, 77.746601</td><td>Both</td><td>1.14</td></tr>
+<tr><td>10</td><td>13.010031, 77.736828</td><td>Both</td><td>1.11</td></tr>
+<tr><td>11</td><td>13.010329, 77.732172</td><td>Vegetation Loss</td><td>0.94</td></tr>
+<tr><td>12</td><td>13.009936, 77.744972</td><td>Vegetation Loss</td><td>0.69</td></tr>
+<tr><td>13</td><td>13.009778, 77.723988</td><td>Both</td><td>0.65</td></tr>
+<tr><td>14</td><td>13.010311, 77.751081</td><td>Vegetation Loss</td><td>0.59</td></tr>
+<tr><td>15</td><td>13.010235, 77.723597</td><td>Vegetation Loss</td><td>0.54</td></tr>
+</table>
+
+<h2>Methodology</h2>
+<ol>
+<li><strong>Data Acquisition:</strong> Sentinel-2 L2A imagery via Microsoft Planetary Computer STAC API</li>
+<li><strong>Preprocessing:</strong> Cloud masking (SCL), atmospheric correction (L2A), band resampling (20m to 10m)</li>
+<li><strong>Spectral Analysis:</strong> NDVI (vegetation), NDBI (built-up), NBI (new construction) index computation</li>
+<li><strong>ML Classification:</strong> Random Forest trained on 6 spectral bands, validated with 70/30 split</li>
+<li><strong>Change Detection:</strong> Bitemporal differencing of spectral indices with adaptive thresholds</li>
+<li><strong>Violation Extraction:</strong> Connected component analysis with geo-coordinate conversion</li>
+</ol>
+
+<p style="color:#888; font-size:12px; margin-top:40px; border-top:1px solid #eee; padding-top:10px;">
+Industrial Environmental Compliance Monitoring System | ML Course Project | IIIT Dharwad</p>
+</body></html>
