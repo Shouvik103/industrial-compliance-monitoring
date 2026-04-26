@@ -254,7 +254,8 @@ def run_kmeans_clustering(base_dir, zone, period="T1_2020"):
 def extract_violation_coordinates(base_dir, zone):
     """
     Extract geo-coordinates for violation locations from the change mask.
-    Returns list of {lat, lon, type} for each violation cluster.
+    Uses morphological closing to merge scattered pixels into meaningful
+    clusters, then extracts centroids with geo-coordinates.
     """
     processed = os.path.join(base_dir, "data", "processed")
     change_path = os.path.join(processed, zone, "change_detection", "change_mask.tif")
@@ -269,22 +270,31 @@ def extract_violation_coordinates(base_dir, zone):
         crs = src.crs
 
     from pyproj import Transformer
+    from scipy.ndimage import label as scipy_label, binary_closing, binary_dilation
     transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
 
     violations = []
-    # Find connected regions of violations
-    from scipy.ndimage import label as scipy_label
+
+    # Structuring element: 5x5 square = merges pixels within 50m
+    struct = np.ones((5, 5), dtype=bool)
 
     for change_type, change_name in [(1, "vegetation_loss"), (2, "new_construction"), (3, "both")]:
         mask = (change == change_type)
         if not mask.any():
             continue
 
-        labeled, n_regions = scipy_label(mask)
+        # Morphological closing to merge scattered pixels into clusters
+        closed = binary_closing(mask, structure=struct, iterations=3)
+        # Then dilate slightly to connect nearby clusters
+        closed = binary_dilation(closed, structure=struct, iterations=1)
 
-        for region_id in range(1, min(n_regions + 1, 51)):  # Top 50 regions max
+        labeled, n_regions = scipy_label(closed)
+
+        for region_id in range(1, min(n_regions + 1, 101)):
             region_pixels = np.where(labeled == region_id)
-            if len(region_pixels[0]) < 10:  # Skip tiny regions (<10 pixels)
+            # Count actual change pixels within this merged region
+            actual_count = int(mask[region_pixels].sum())
+            if actual_count < 5:
                 continue
 
             # Centroid in pixel coordinates
@@ -297,15 +307,13 @@ def extract_violation_coordinates(base_dir, zone):
             # Convert to lat/lon
             lon, lat = transformer.transform(map_x, map_y)
 
-            area_pixels = len(region_pixels[0])
-            # Each 10m pixel = 100 m²
-            area_sqm = area_pixels * 100
+            area_sqm = actual_count * 100
 
             violations.append({
                 "lat": round(lat, 6),
                 "lon": round(lon, 6),
                 "type": change_name,
-                "area_pixels": int(area_pixels),
+                "area_pixels": actual_count,
                 "area_sqm": int(area_sqm),
                 "area_hectares": round(area_sqm / 10000, 3),
             })

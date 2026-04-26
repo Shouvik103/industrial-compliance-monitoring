@@ -1,0 +1,578 @@
+[
+  {
+    "lat": 12.980376,
+    "lon": 77.737505,
+    "type": "vegetation_loss",
+    "area_pixels": 53452,
+    "area_sqm": 5345200,
+    "area_hectares": 534.52
+  },
+  {
+    "lat": 12.978932,
+    "lon": 77.73647,
+    "type": "both",
+    "area_pixels": 37888,
+    "area_sqm": 3788800,
+    "area_hectares": 378.88
+  },
+  {
+    "lat": 12.979103,
+    "lon": 77.750223,
+    "type": "both",
+    "area_pixels": 2679,
+    "area_sqm": 267900,
+    "area_hectares": 26.79
+  },
+  {
+    "lat": 13.003786,
+    "lon": 77.729293,
+    "type": "new_construction",
+    "area_pixels": 252,
+    "area_sqm": 25200,
+    "area_hectares": 2.52
+  },
+  {
+    "lat": 12.987992,
+    "lon": 77.737314,
+    "type": "both",
+    "area_pixels": 163,
+    "area_sqm": 16300,
+    "area_hectares": 1.63
+  },
+  {
+    "lat": 12.990662,
+    "lon": 77.727252,
+    "type": "new_construction",
+    "area_pixels": 138,
+    "area_sqm": 13800,
+    "area_hectares": 1.38
+  },
+  {
+    "lat": 12.984186,
+    "lon": 77.733247,
+    "type": "new_construction",
+    "area_pixels": 105,
+    "area_sqm": 10500,
+    "area_hectares": 1.05
+  },
+  {
+    "lat": 13.007629,
+    "lon": 77.753638,
+    "type": "both",
+    "area_pixels": 100,
+    "area_sqm": 10000,
+    "area_hectares": 1.0
+  },
+  {
+    "lat": 12.976738,
+    "lon": 77.742841,
+    "type": "both",
+    "area_pixels": 99,
+    "area_sqm": 9900,
+    "area_hectares": 0.99
+  },
+  {
+    "lat": 12.952063,
+    "lon": 77.721267,
+    "type": "both",
+    "area_pixels": 66,
+    "area_sqm": 6600,
+    "area_hectares": 0.66
+  },
+  {
+    "lat": 12.991005,
+    "lon": 77.722129,
+    "type": "both",
+    "area_pixels": 62,
+    "area_sqm": 6200,
+    "area_hectares": 0.62
+  },
+  {
+    "lat": 12.997936,
+    "lon": 77.728393,
+    "type": "new_construction",
+    "area_pixels": 59,
+    "area_sqm": 5900,
+    "area_hectares": 0.59
+  },
+  {
+    "lat": 13.009731,
+    "lon": 77.753261,
+    "type": "both",
+    "area_pixels": 55,
+    "area_sqm": 5500,
+    "area_hectares": 0.55
+  },
+  {
+    "lat": 12.99379,
+    "lon": 77.741072,
+    "type": "both",
+    "area_pixels": 51,
+    "area_sqm": 5100,
+    "area_hectares": 0.51
+  },
+  {
+    "lat": 12.987213,
+    "lon": 77.748228,
+    "type": "both",
+    "area_pixels": 48,
+    "area_sqm": 4800,
+    "area_hectares": 0.48
+  },
+  {
+    "lat": 12.974058,
+    "lon": 77.753632,
+    "type": "both",
+    "area_pixels": 46,
+    "area_sqm": 4600,
+    "area_hectares": 0.46
+  },
+  {
+    "lat": 12.975029,
+    "lon": 77.744349,
+    "type": "both",
+    "area_pixels": 45,
+    "area_sqm": 4500,
+    "area_hectares": 0.45
+  },
+  {
+    "lat": 12.996008,
+    "lon": 77.739975,
+    "type": "both",
+    "area_pixels": 43,
+    "area_sqm": 4300,
+    "area_hectares": 0.43
+  },
+  {
+    "lat": 12.985139,
+    "lon": 77.742531,
+    "type": "both",
+    "area_pixels": 38,
+    "area_sqm": 3800,
+    "area_hectares": 0.38
+  },
+  {
+    "lat": 12.984206,
+    "lon": 77.753994,
+    "type": "both",
+    "area_pixels": 37,
+    "area_sqm": 3700,
+    "area_hectares": 0.37
+  },
+  {
+    "lat": 12.981584,
+    "lon": 77.720982,
+    "type": "both",
+    "area_pixels": 36,
+    "area_sqm": 3600,
+    "area_hectares": 0.36
+  },
+  {
+    "lat": 12.997339,
+    "lon": 77.753613,
+    "type": "both",
+    "area_pixels": 34,
+    "area_sqm": 3400,
+    "area_hectares": 0.34
+  },
+  {
+    "lat": 12.96781,
+    "lon": 77.753584,
+    "type": "both",
+    "area_pixels": 32,
+    "area_sqm": 3200,
+    "area_hectares": 0.32
+  },
+  {
+    "lat": 12.99609,
+    "lon": 77.735811,
+    "type": "both",
+    "area_pixels": 30,
+    "area_sqm": 3000,
+    "area_hectares": 0.3
+  },
+  {
+    "lat": 12.98623,
+    "lon": 77.728587,
+    "type": "new_construction",
+    "area_pixels": 29,
+    "area_sqm": 2900,
+    "area_hectares": 0.29
+  },
+  {
+    "lat": 12.976705,
+    "lon": 77.740485,
+    "type": "both",
+    "area_pixels": 29,
+    "area_sqm": 2900,
+    "area_hectares": 0.29
+  },
+  {
+    "lat": 12.996234,
+    "lon": 77.74839,
+    "type": "both",
+    "area_pixels": 26,
+    "area_sqm": 2600,
+    "area_hectares": 0.26
+  },
+  {
+    "lat": 12.986335,
+    "lon": 77.721881,
+    "type": "both",
+    "area_pixels": 26,
+    "area_sqm": 2600,
+    "area_hectares": 0.26
+  },
+  {
+    "lat": 12.976709,
+    "lon": 77.745799,
+    "type": "both",
+    "area_pixels": 26,
+    "area_sqm": 2600,
+    "area_hectares": 0.26
+  },
+  {
+    "lat": 12.990738,
+    "lon": 77.734591,
+    "type": "both",
+    "area_pixels": 25,
+    "area_sqm": 2500,
+    "area_hectares": 0.25
+  },
+  {
+    "lat": 13.000886,
+    "lon": 77.727489,
+    "type": "new_construction",
+    "area_pixels": 24,
+    "area_sqm": 2400,
+    "area_hectares": 0.24
+  },
+  {
+    "lat": 12.995238,
+    "lon": 77.750105,
+    "type": "both",
+    "area_pixels": 20,
+    "area_sqm": 2000,
+    "area_hectares": 0.2
+  },
+  {
+    "lat": 13.007107,
+    "lon": 77.722315,
+    "type": "new_construction",
+    "area_pixels": 19,
+    "area_sqm": 1900,
+    "area_hectares": 0.19
+  },
+  {
+    "lat": 12.991823,
+    "lon": 77.746576,
+    "type": "both",
+    "area_pixels": 19,
+    "area_sqm": 1900,
+    "area_hectares": 0.19
+  },
+  {
+    "lat": 12.987409,
+    "lon": 77.754034,
+    "type": "both",
+    "area_pixels": 19,
+    "area_sqm": 1900,
+    "area_hectares": 0.19
+  },
+  {
+    "lat": 12.993811,
+    "lon": 77.724369,
+    "type": "both",
+    "area_pixels": 18,
+    "area_sqm": 1800,
+    "area_hectares": 0.18
+  },
+  {
+    "lat": 12.99322,
+    "lon": 77.733096,
+    "type": "new_construction",
+    "area_pixels": 17,
+    "area_sqm": 1700,
+    "area_hectares": 0.17
+  },
+  {
+    "lat": 12.995035,
+    "lon": 77.726353,
+    "type": "both",
+    "area_pixels": 17,
+    "area_sqm": 1700,
+    "area_hectares": 0.17
+  },
+  {
+    "lat": 12.999363,
+    "lon": 77.73771,
+    "type": "both",
+    "area_pixels": 16,
+    "area_sqm": 1600,
+    "area_hectares": 0.16
+  },
+  {
+    "lat": 13.009445,
+    "lon": 77.742487,
+    "type": "new_construction",
+    "area_pixels": 15,
+    "area_sqm": 1500,
+    "area_hectares": 0.15
+  },
+  {
+    "lat": 13.002917,
+    "lon": 77.722208,
+    "type": "new_construction",
+    "area_pixels": 15,
+    "area_sqm": 1500,
+    "area_hectares": 0.15
+  },
+  {
+    "lat": 12.969536,
+    "lon": 77.722175,
+    "type": "both",
+    "area_pixels": 15,
+    "area_sqm": 1500,
+    "area_hectares": 0.15
+  },
+  {
+    "lat": 13.009166,
+    "lon": 77.730759,
+    "type": "new_construction",
+    "area_pixels": 13,
+    "area_sqm": 1300,
+    "area_hectares": 0.13
+  },
+  {
+    "lat": 13.000076,
+    "lon": 77.721474,
+    "type": "new_construction",
+    "area_pixels": 11,
+    "area_sqm": 1100,
+    "area_hectares": 0.11
+  },
+  {
+    "lat": 12.983859,
+    "lon": 77.739223,
+    "type": "both",
+    "area_pixels": 11,
+    "area_sqm": 1100,
+    "area_hectares": 0.11
+  },
+  {
+    "lat": 12.988199,
+    "lon": 77.736547,
+    "type": "new_construction",
+    "area_pixels": 10,
+    "area_sqm": 1000,
+    "area_hectares": 0.1
+  },
+  {
+    "lat": 12.983285,
+    "lon": 77.741071,
+    "type": "both",
+    "area_pixels": 10,
+    "area_sqm": 1000,
+    "area_hectares": 0.1
+  },
+  {
+    "lat": 12.995143,
+    "lon": 77.754242,
+    "type": "both",
+    "area_pixels": 9,
+    "area_sqm": 900,
+    "area_hectares": 0.09
+  },
+  {
+    "lat": 12.982732,
+    "lon": 77.752869,
+    "type": "both",
+    "area_pixels": 9,
+    "area_sqm": 900,
+    "area_hectares": 0.09
+  },
+  {
+    "lat": 13.005219,
+    "lon": 77.724486,
+    "type": "new_construction",
+    "area_pixels": 8,
+    "area_sqm": 800,
+    "area_hectares": 0.08
+  },
+  {
+    "lat": 12.994189,
+    "lon": 77.729737,
+    "type": "new_construction",
+    "area_pixels": 8,
+    "area_sqm": 800,
+    "area_hectares": 0.08
+  },
+  {
+    "lat": 12.990004,
+    "lon": 77.749083,
+    "type": "both",
+    "area_pixels": 8,
+    "area_sqm": 800,
+    "area_hectares": 0.08
+  },
+  {
+    "lat": 13.006047,
+    "lon": 77.740106,
+    "type": "new_construction",
+    "area_pixels": 7,
+    "area_sqm": 700,
+    "area_hectares": 0.07
+  },
+  {
+    "lat": 12.992395,
+    "lon": 77.730721,
+    "type": "new_construction",
+    "area_pixels": 7,
+    "area_sqm": 700,
+    "area_hectares": 0.07
+  },
+  {
+    "lat": 12.986561,
+    "lon": 77.731645,
+    "type": "new_construction",
+    "area_pixels": 7,
+    "area_sqm": 700,
+    "area_hectares": 0.07
+  },
+  {
+    "lat": 12.985913,
+    "lon": 77.753188,
+    "type": "new_construction",
+    "area_pixels": 7,
+    "area_sqm": 700,
+    "area_hectares": 0.07
+  },
+  {
+    "lat": 12.992983,
+    "lon": 77.736079,
+    "type": "both",
+    "area_pixels": 7,
+    "area_sqm": 700,
+    "area_hectares": 0.07
+  },
+  {
+    "lat": 12.953259,
+    "lon": 77.733287,
+    "type": "vegetation_loss",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 13.006739,
+    "lon": 77.724841,
+    "type": "new_construction",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 13.000019,
+    "lon": 77.741686,
+    "type": "new_construction",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 12.993468,
+    "lon": 77.74096,
+    "type": "new_construction",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 13.007048,
+    "lon": 77.737995,
+    "type": "both",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 12.997576,
+    "lon": 77.749627,
+    "type": "both",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 12.983248,
+    "lon": 77.743731,
+    "type": "both",
+    "area_pixels": 6,
+    "area_sqm": 600,
+    "area_hectares": 0.06
+  },
+  {
+    "lat": 13.009755,
+    "lon": 77.724987,
+    "type": "new_construction",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 13.006699,
+    "lon": 77.748258,
+    "type": "new_construction",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 13.005622,
+    "lon": 77.722857,
+    "type": "new_construction",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 13.000021,
+    "lon": 77.723772,
+    "type": "new_construction",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 12.991467,
+    "lon": 77.734182,
+    "type": "new_construction",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 13.004171,
+    "lon": 77.739628,
+    "type": "both",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 12.989944,
+    "lon": 77.740976,
+    "type": "both",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  },
+  {
+    "lat": 12.950547,
+    "lon": 77.724887,
+    "type": "both",
+    "area_pixels": 5,
+    "area_sqm": 500,
+    "area_hectares": 0.05
+  }
+]

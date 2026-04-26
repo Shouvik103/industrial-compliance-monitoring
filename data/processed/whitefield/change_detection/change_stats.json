@@ -1,0 +1,11 @@
+{
+  "total_valid_pixels": 252476,
+  "green_cover_t1_pct": 71.25,
+  "green_cover_t2_pct": 43.45,
+  "green_cover_change_pct": -27.8,
+  "vegetation_loss_pixels": 98274,
+  "vegetation_loss_pct": 38.92,
+  "new_construction_pixels": 44737,
+  "new_construction_pct": 17.72,
+  "risk_level": "MEDIUM"
+}
