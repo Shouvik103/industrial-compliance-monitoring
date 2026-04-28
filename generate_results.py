@@ -282,7 +282,7 @@ def generate_compliance_report():
         risk_color = {"LOW": "#22c55e", "MEDIUM": "#f59e0b", "HIGH": "#ef4444"}.get(stats["risk_level"], "#666")
 
         viol_rows = ""
-        for i, v in enumerate(violations[:15], 1):
+        for i, v in enumerate(violations, 1):
             viol_rows += f"<tr><td>{i}</td><td>{v['lat']:.6f}, {v['lon']:.6f}</td><td>{v['type'].replace('_',' ').title()}</td><td>{v['area_hectares']}</td></tr>\n"
 
         html = f"""<!DOCTYPE html>
