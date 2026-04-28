@@ -162,6 +162,7 @@ tr:hover td{background:#f9fafb}
     <div class="img-panel">
       <div class="img-tabs" id="imgTabs"></div>
       <img id="mainImage" src="" alt="Analysis">
+      <iframe id="reportFrame" src="" style="display:none;width:100%;height:700px;border:none;background:#fff"></iframe>
     </div>
   </div>
 </div>
@@ -316,6 +317,7 @@ function renderImages(z) {
     {id: "n1", label: "NDVI 2020", src: `/img/frontend/assets/${name}/ndvi_T1_2020.png`},
     {id: "n2", label: "NDVI 2024", src: `/img/frontend/assets/${name}/ndvi_T2_2024.png`},
     {id: "db", label: "Dashboard", src: `/img/frontend/assets/${name}/dashboard.png`},
+    {id: "cr", label: "Compliance Report", src: null, report: `/report/${name}`},
   ];
 
   const tabs = document.getElementById("imgTabs");
@@ -324,13 +326,26 @@ function renderImages(z) {
   ).join("");
 
   const mainImg = document.getElementById("mainImage");
+  const reportFrame = document.getElementById("reportFrame");
   mainImg.src = images[0].src;
+  mainImg.style.display = "block";
+  reportFrame.style.display = "none";
 
   tabs.querySelectorAll(".img-tab").forEach(tab => {
     tab.onclick = () => {
       tabs.querySelectorAll(".img-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
-      mainImg.src = images[parseInt(tab.dataset.idx)].src;
+      const idx = parseInt(tab.dataset.idx);
+      const img = images[idx];
+      if (img.report) {
+        mainImg.style.display = "none";
+        reportFrame.style.display = "block";
+        reportFrame.src = img.report;
+      } else {
+        reportFrame.style.display = "none";
+        mainImg.style.display = "block";
+        mainImg.src = img.src;
+      }
     };
   });
 }

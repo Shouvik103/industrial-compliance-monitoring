@@ -73,6 +73,13 @@ def serve_image(filepath):
     full = os.path.join(BASE, filepath)
     return send_file(full, mimetype="image/png")
 
+@app.route("/report/<zone>")
+def serve_report(zone):
+    report_path = os.path.join(BASE, "reports", f"compliance_report_{zone}.html")
+    if os.path.exists(report_path):
+        return send_file(report_path)
+    return "Report not found", 404
+
 if __name__ == "__main__":
     print(f"  Dashboard: http://localhost:5000")
     app.run(debug=False, port=5000)
